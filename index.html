@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generate Link</title>
+    <link rel="stylesheet" href="bootstrap-5.3.3-dist/css/bootstrap.min.css">
+</head>
+<body>
+    <div id="app">
+        <form class="p-3" @submit.prevent="submitForm">
+            <div class="form-group mb-2">
+                <label for="nama2">No Hp</label>
+                <input type="number" min="0" minlength="10" maxlength="14" v-model="data_redirect.no_hp" class="form-control" id="nama2" placeholder="Masukkan hp Anda" required />
+            </div>
+            <div class="form-group mb-2">
+                <label for="pesan">Masukkan text yang akan di Kirim</label>
+                <textarea v-model="data_redirect.text" class="form-control" id="pesan" rows="3" placeholder="Masukkan text" required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Kirim</button>
+        </form>
+        <div class="p-3">
+            <label for="link">Copy Link ini</label>
+            <textarea v-model="link_wa" class="form-control" id="link" rows="3" placeholder="" required></textarea>
+            <a :href="link_wa">Akses link ini</a>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="bootstrap-5.3.3-dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        new Vue({
+            el: "#app",
+            data: {
+                data_redirect:{
+                    no_hp: "",
+                    text: "",
+                },
+                link_wa: "",
+            },
+            created() {
+            },
+            beforeDestroy() {
+            },
+            methods: {
+                submitForm() {
+                    var url = 'https://wa.me/' + this.data_redirect.no_hp + '?text=' + encodeURIComponent(this.data_redirect.text);
+                    this.link_wa = url
+                },
+            },
+        });
+    </script>
+</body>
+</html>
